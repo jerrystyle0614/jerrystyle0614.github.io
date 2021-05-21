@@ -22,19 +22,23 @@
         };
 
         var context = '場所代碼：' + getUrlParameter("text") + ' 本簡訊為實聯登記，限防疫目的使用。';
-        var os = getMobileDevice();
-        if (os == "android") {
-            location.href = "sms:1922?body=" + context;
+        
+        function redirectUrl() {
+            var os = getMobileDevice();
+            if (os == "android") {
+                location.href = "sms:1922?body=" + context;
+            }
+            else if (os == "ios") {
+                location.href = "sms:1922&body=" + context;
+            } else {
+                console.log('device unknown');
+            }
         }
-        else if (os == "ios") {
-            location.href = "sms:1922&body=" + context;
-        } else {
-            console.log('device unknown');
-        }
+        
     </script>
 </head>
 
-<body>
+<body onload="redirectUrl()">
     <div style="text-align: center;margin-top: 200px;line-height: 21px;font-weight: 400;">
         <img src="./closeSelf.svg" width="170" height="140">
         <div style="margin-top: 10px;font-size: 14px;color: #333333;">簡訊實聯登記</div>
